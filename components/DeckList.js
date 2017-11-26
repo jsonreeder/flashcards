@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 import * as api from '../utils/api';
 
 export default class DeckList extends React.Component {
@@ -12,15 +12,23 @@ export default class DeckList extends React.Component {
     this.setState({ decks });
   }
 
+  _onPressButton(e, deckId) {
+    const { navigation } = this.props;
+    return navigation.navigate('Deck', { deckId });
+    /* Alert.alert(deckId + '');*/
+  }
+
   render() {
     const { decks } = this.state;
 
     return (
       <View style={styles.container}>
         {decks.map((d, i) =>
-          <Text key={i}>
-            {`${d.title} (${d.count})`}
-          </Text>,
+          <Button
+            key={i}
+            onPress={e => this._onPressButton(e, d.id)}
+            title={`${d.title} (${d.count})`}
+          />,
         )}
       </View>
     );
