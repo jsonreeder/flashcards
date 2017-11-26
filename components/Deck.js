@@ -5,7 +5,6 @@ import * as api from '../utils/api';
 export default class Deck extends React.Component {
   state = {
     title: '',
-    count: 0,
     cards: [],
   };
 
@@ -30,15 +29,24 @@ export default class Deck extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>{`${title} - (${count})`}</Text>
-        <Button
-          onPress={() => navigate('Quiz', { deckId })}
-          title="start quiz"
-        />
-        <Button
-          onPress={() => navigate('AddCard', { deckId })}
-          title="add card"
-        />
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>
+            {title}
+          </Text>
+          <Text style={styles.count}>
+            {count} cards
+          </Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => navigate('Quiz', { deckId })}
+            title="start quiz"
+          />
+          <Button
+            onPress={() => navigate('AddCard', { deckId })}
+            title="add card"
+          />
+        </View>
       </View>
     );
   }
@@ -48,6 +56,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonContainer: {
+    marginBottom: 80,
+  },
+  title: {
+    fontSize: 30,
+  },
+  count: {
+    fontStyle: 'italic',
   },
 });
