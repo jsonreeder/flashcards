@@ -12,21 +12,16 @@ export default class DeckList extends React.Component {
     this.setState({ decks });
   }
 
-  _onPressButton(e, deckId) {
-    const { navigation } = this.props;
-    return navigation.navigate('Deck', { deckId });
-    /* Alert.alert(deckId + '');*/
-  }
-
   render() {
     const { decks } = this.state;
+    const { navigation: { navigate } } = this.props;
 
     return (
       <View style={styles.container}>
         {decks.map((d, i) =>
           <Button
             key={i}
-            onPress={e => this._onPressButton(e, d.id)}
+            onPress={() => navigate('Deck', { deckId: d.id })}
             title={`${d.title} (${d.count})`}
           />,
         )}
