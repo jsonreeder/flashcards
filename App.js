@@ -1,12 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import * as api from './utils/api';
 
 export default class App extends React.Component {
   render() {
+    const decks = api.getDecks();
+
     return (
       <View style={styles.container}>
-        <Text>Animals</Text>
-        <Text>Food</Text>
+        {decks.map((d, i) =>
+          <Text key={i}>
+            {d.title}
+          </Text>,
+        )}
       </View>
     );
   }
