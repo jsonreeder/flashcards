@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default class AddCard extends React.Component {
   state = {
@@ -14,18 +14,23 @@ export default class AddCard extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>Front</Text>
-        <TextInput
-          onChangeText={front => this.setState({ front })}
-          value={this.state.front}
-          style={styles.input}
-        />
-        <Text style={styles.label}>Back</Text>
-        <TextInput
-          onChangeText={back => this.setState({ back })}
-          value={this.state.back}
-          style={styles.input}
-        />
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>front</Text>
+          <TextInput
+            onChangeText={front => this.setState({ front })}
+            value={this.state.front}
+            style={styles.input}
+          />
+        </View>
+        <View style={(styles.formGroup, { paddingTop: 20 })}>
+          <Text style={styles.label}>back</Text>
+          <TextInput
+            onChangeText={back => this.setState({ back })}
+            value={this.state.back}
+            style={styles.input}
+          />
+        </View>
+        <Button onPress={() => Alert.alert('pressed')} title="submit" />
       </View>
     );
   }
@@ -44,7 +49,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
   },
+  formGroup: {
+    justifyContent: 'flex-start',
+  },
   label: {
-    paddingTop: 10,
+    paddingBottom: 5,
   },
 });
