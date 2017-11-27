@@ -1,11 +1,62 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 
 export default class Deck extends React.Component {
+  state = {
+    isFlipped: false,
+  };
+
+  renderText() {
+    const front = 'cat';
+    const back = 'قطّة (ج) قطط';
+    const { isFlipped } = this.state;
+
+    if (!isFlipped) {
+      return (
+        <Text>
+          {front}
+        </Text>
+      );
+    }
+
+    return (
+      <Text>
+        {back}
+      </Text>
+    );
+  }
+
+  renderFlip() {
+    const { isFlipped } = this.state;
+    const text = !isFlipped ? 'show answer' : 'show question';
+
+    return (
+      <Button
+        onPress={() => this.setState({ isFlipped: !isFlipped })}
+        title={text}
+      />
+    );
+  }
+
+  renderAnswerButtons() {
+    return (
+      <View>
+        <Button onPress={() => Alert.alert('')} title="correct" />
+        <Button onPress={() => Alert.alert('')} title="incorrect" />
+      </View>
+    );
+  }
+
   render() {
+    const currentCardNo = 4;
+    const totalCardNo = 16;
+
     return (
       <View style={styles.container}>
-        <Text>Quiz Card</Text>
+        <Text>{`${currentCardNo} / ${totalCardNo}`}</Text>
+        {this.renderText()}
+        {this.renderFlip()}
+        {this.renderAnswerButtons()}
       </View>
     );
   }
