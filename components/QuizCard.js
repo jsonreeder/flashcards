@@ -45,7 +45,9 @@ export default class Deck extends React.Component {
     const {
       navigation: {
         navigate,
-        state: { params: { currentCardNo, totalCardNo, getCard, scoreUp } },
+        state: {
+          params: { currentCardNo, totalCardNo, getCard, scoreUp, getScore },
+        },
       },
     } = this.props;
 
@@ -55,9 +57,10 @@ export default class Deck extends React.Component {
 
     return navigate('Quiz', {
       currentCardNo: currentCardNo + 1,
-      totalCardNo,
       getCard,
+      getScore,
       scoreUp,
+      totalCardNo,
     });
   }
 
@@ -70,12 +73,9 @@ export default class Deck extends React.Component {
     );
   }
 
-  render() {
+  renderCard() {
     const {
-      navigation: {
-        navigate,
-        state: { params: { currentCardNo, totalCardNo } },
-      },
+      navigation: { state: { params: { currentCardNo, totalCardNo } } },
     } = this.props;
 
     return (
@@ -86,6 +86,34 @@ export default class Deck extends React.Component {
         {this.renderAnswerButtons()}
       </View>
     );
+  }
+
+  renderScore() {
+    const {
+      navigation: { state: { params: { getScore, totalCardNo } } },
+    } = this.props;
+    const score = getScore();
+
+    return (
+      <View style={styles.container}>
+        <Text>{`${score / totalCardNo * 100} %`}</Text>
+        <Text>{`${score} / ${totalCardNo}`}</Text>
+      </View>
+    );
+  }
+
+  render() {
+    const {
+      navigation: {
+        state: { params: { currentCardNo, totalCardNo, getScore } },
+      },
+    } = this.props;
+
+    if (currentCardNo === totalCardNo) {
+      return this.renderScore();
+    }
+
+    return this.renderCard();
   }
 }
 

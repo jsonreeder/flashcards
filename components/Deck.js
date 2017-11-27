@@ -16,6 +16,12 @@ export default class Deck extends React.Component {
     this.setState({ title, cards });
   }
 
+  resetScore() {
+    this.setState({
+      score: 0,
+    });
+  }
+
   calculateCount() {
     const { cards } = this.state;
     return cards.length;
@@ -31,8 +37,13 @@ export default class Deck extends React.Component {
     }));
   }
 
+  getScore() {
+    const { score } = this.state;
+    return score;
+  }
+
   render() {
-    const { title, cards } = this.state;
+    const { title, cards, score } = this.state;
     const {
       navigation: { navigate, state: { params: { deckId } } },
     } = this.props;
@@ -51,14 +62,17 @@ export default class Deck extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() =>
-              navigate('Quiz', {
+            onPress={() => {
+              this.resetScore();
+              return navigate('Quiz', {
                 deckId,
                 currentCardNo: 0,
                 totalCardNo: this.calculateCount(),
                 getCard: cardNo => this.getCard(cards, cardNo),
                 scoreUp: () => this.scoreUp(),
-              })}
+                getScore: () => this.getScore(),
+              });
+            }}
             title="start quiz"
           />
           <Button
