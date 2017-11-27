@@ -20,12 +20,17 @@ export default class Deck extends React.Component {
     return cards.length;
   }
 
+  getCard(cards, cardNo) {
+    return cards[cardNo];
+  }
+
   render() {
-    const { title } = this.state;
+    const { title, cards } = this.state;
     const {
       navigation: { navigate, state: { params: { deckId } } },
     } = this.props;
     const count = this.calculateCount();
+    const card = cards[0];
 
     return (
       <View style={styles.container}>
@@ -39,7 +44,13 @@ export default class Deck extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => navigate('Quiz', { deckId })}
+            onPress={() =>
+              navigate('Quiz', {
+                deckId,
+                currentCardNo: 0,
+                totalCardNo: this.calculateCount(),
+                getCard: cardNo => this.getCard(cards, cardNo),
+              })}
             title="start quiz"
           />
           <Button

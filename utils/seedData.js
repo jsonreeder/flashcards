@@ -11,9 +11,9 @@ module.exports = {
   ],
   cards: [
     {
-      back: 'cat',
+      back: 'قطّة (ج) قطط',
       deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
-      front: 'قطّة (ج) قطط',
+      front: 'cat',
       id: '3e6b1142-721f-4282-a5c9-4d386af75db1',
     },
     {

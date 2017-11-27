@@ -4,12 +4,14 @@ import { Deck, DeckList, QuizCard } from './components';
 
 const Stack = StackNavigator({
   Home: {
-    /* screen: DeckList,*/
-    screen: QuizCard,
+    screen: DeckList,
   },
   Deck: {
     path: 'decks/:deckId',
     screen: Deck,
+  },
+  Quiz: {
+    screen: QuizCard,
   },
 });
 
