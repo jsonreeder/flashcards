@@ -68,7 +68,7 @@ export default class Deck extends React.Component {
                 deckId,
                 currentCardNo: 0,
                 totalCardNo: this.calculateCount(),
-                getCard: cardNo => this.getCard(cards, cardNo),
+                cards,
                 scoreUp: () => this.scoreUp(),
                 getScore: () => this.getScore(),
               });

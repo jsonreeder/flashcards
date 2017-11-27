@@ -4,13 +4,15 @@ import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 export default class Deck extends React.Component {
   state = {
     isFlipped: false,
+    currentCardNo: 0,
   };
 
   renderText() {
     const {
-      navigation: { navigate, state: { params: { currentCardNo, getCard } } },
+      navigation: { navigate, state: { params: { cards } } },
     } = this.props;
-    const card = getCard(currentCardNo);
+    const { currentCardNo } = this.state;
+    const card = cards[currentCardNo];
     const { front, back } = card;
     const { isFlipped } = this.state;
 
@@ -42,12 +44,11 @@ export default class Deck extends React.Component {
   }
 
   nextCard(outcome) {
+    const { currentCardNo } = this.state;
     const {
       navigation: {
         navigate,
-        state: {
-          params: { currentCardNo, totalCardNo, getCard, scoreUp, getScore },
-        },
+        state: { params: { cards, totalCardNo, scoreUp, getScore } },
       },
     } = this.props;
 
@@ -55,13 +56,9 @@ export default class Deck extends React.Component {
       scoreUp();
     }
 
-    return navigate('Quiz', {
-      currentCardNo: currentCardNo + 1,
-      getCard,
-      getScore,
-      scoreUp,
-      totalCardNo,
-    });
+    return this.setState(state => ({
+      currentCardNo: state.currentCardNo + 1,
+    }));
   }
 
   renderAnswerButtons() {
@@ -74,9 +71,8 @@ export default class Deck extends React.Component {
   }
 
   renderCard() {
-    const {
-      navigation: { state: { params: { currentCardNo, totalCardNo } } },
-    } = this.props;
+    const { navigation: { state: { params: { totalCardNo } } } } = this.props;
+    const { currentCardNo } = this.state;
 
     return (
       <View style={styles.container}>
