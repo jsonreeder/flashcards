@@ -42,16 +42,30 @@ export default class Deck extends React.Component {
     );
   }
 
+  nextCard() {
+    const {
+      navigation: {
+        navigate,
+        state: { params: { currentCardNo, totalCardNo, getCard } },
+      },
+    } = this.props;
+
+    return () =>
+      navigate('Quiz', {
+        currentCardNo: currentCardNo + 1,
+        totalCardNo,
+        getCard,
+      });
+  }
+
   renderAnswerButtons() {
     return (
       <View>
-        <Button onPress={() => Alert.alert('')} title="correct" />
-        <Button onPress={() => Alert.alert('')} title="incorrect" />
+        <Button onPress={this.nextCard()} title="correct" />
+        <Button onPress={this.nextCard()} title="incorrect" />
       </View>
     );
   }
-
-  nextCard() {}
 
   render() {
     const {
