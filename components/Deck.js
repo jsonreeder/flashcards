@@ -6,6 +6,7 @@ export default class Deck extends React.Component {
   state = {
     title: '',
     cards: [],
+    score: 0,
   };
 
   componentDidMount() {
@@ -22,6 +23,12 @@ export default class Deck extends React.Component {
 
   getCard(cards, cardNo) {
     return cards[cardNo];
+  }
+
+  scoreUp() {
+    return this.setState(state => ({
+      score: state.score + 1,
+    }));
   }
 
   render() {
@@ -50,6 +57,7 @@ export default class Deck extends React.Component {
                 currentCardNo: 0,
                 totalCardNo: this.calculateCount(),
                 getCard: cardNo => this.getCard(cards, cardNo),
+                scoreUp: () => this.scoreUp(),
               })}
             title="start quiz"
           />

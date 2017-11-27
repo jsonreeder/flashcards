@@ -11,7 +11,6 @@ export default class Deck extends React.Component {
       navigation: { navigate, state: { params: { currentCardNo, getCard } } },
     } = this.props;
     const card = getCard(currentCardNo);
-    console.log(card);
     const { front, back } = card;
     const { isFlipped } = this.state;
 
@@ -42,27 +41,31 @@ export default class Deck extends React.Component {
     );
   }
 
-  nextCard() {
+  nextCard(outcome) {
     const {
       navigation: {
         navigate,
-        state: { params: { currentCardNo, totalCardNo, getCard } },
+        state: { params: { currentCardNo, totalCardNo, getCard, scoreUp } },
       },
     } = this.props;
 
-    return () =>
-      navigate('Quiz', {
-        currentCardNo: currentCardNo + 1,
-        totalCardNo,
-        getCard,
-      });
+    if (outcome === 'correct') {
+      scoreUp();
+    }
+
+    return navigate('Quiz', {
+      currentCardNo: currentCardNo + 1,
+      totalCardNo,
+      getCard,
+      scoreUp,
+    });
   }
 
   renderAnswerButtons() {
     return (
       <View>
-        <Button onPress={this.nextCard()} title="correct" />
-        <Button onPress={this.nextCard()} title="incorrect" />
+        <Button onPress={() => this.nextCard('correct')} title="correct" />
+        <Button onPress={() => this.nextCard('incorrect')} title="incorrect" />
       </View>
     );
   }
