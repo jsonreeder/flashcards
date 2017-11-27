@@ -17,6 +17,48 @@ module.exports = {
       id: '3e6b1142-721f-4282-a5c9-4d386af75db1',
     },
     {
+      back: 'كلب (ج) كلاب',
+      deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
+      front: 'dog',
+      id: 'c33d0964-e493-4774-b06f-3a3d33713530',
+    },
+    {
+      back: 'بقرة (ج) بقرات',
+      deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
+      front: 'cow',
+      id: 'e2c1938a-d8e8-4dff-afe2-f8a06e32481b',
+    },
+    {
+      back: 'ثور (ج) ثيران',
+      deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
+      front: 'bull, ox',
+      id: '258c8000-da01-4739-be4c-162287ee95d7',
+    },
+    {
+      back: 'عجل (ج) عجول',
+      deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
+      front: 'calf',
+      id: '45effaea-a706-425f-8d2e-81c248d1cd4e',
+    },
+    {
+      back: 'جاموس (ج) جواميس',
+      deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
+      front: 'buffalo',
+      id: 'd6433659-78fd-481e-9a0b-0be69e6aacab',
+    },
+    {
+      back: 'بهيمة (ج) بهائم',
+      deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
+      front: 'cattle, livestock',
+      id: '3bba0706-b0ae-4898-994f-063d9a3e581e',
+    },
+    {
+      back: 'غنم (ج) أغنام',
+      deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
+      front: 'sheep',
+      id: '304cfbb3-fef8-483d-acf3-9f3c16fe93fc',
+    },
+    {
       back: 'خروف (ج) خراف',
       deck: '81db73a9-ff7a-4d73-8902-ac9f4daa6ca3',
       front: 'lamb',
