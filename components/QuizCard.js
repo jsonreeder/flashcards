@@ -1,11 +1,18 @@
 import React from 'react';
 import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 
-export default class Deck extends React.Component {
+export default class QuizCard extends React.Component {
   state = {
     isFlipped: false,
     currentCardNo: 0,
+    score: 0,
   };
+
+  scoreUp() {
+    return this.setState(state => ({
+      score: state.score + 1,
+    }));
+  }
 
   countCards() {
     const { navigation: { state: { params: { cards } } } } = this.props;
@@ -48,12 +55,12 @@ export default class Deck extends React.Component {
 
   nextCard(outcome) {
     const { currentCardNo } = this.state;
-    const {
-      navigation: { state: { params: { cards, scoreUp, getScore } } },
-    } = this.props;
+    const { navigation: { state: { params: { cards } } } } = this.props;
 
     if (outcome === 'correct') {
-      scoreUp();
+      this.setState(state => ({
+        score: state.score + 1,
+      }));
     }
 
     return this.setState(state => ({
@@ -85,7 +92,7 @@ export default class Deck extends React.Component {
 
   renderScore() {
     const { navigation: { state: { params: { getScore } } } } = this.props;
-    const score = getScore();
+    const { score } = this.state;
 
     return (
       <View style={styles.container}>
@@ -96,7 +103,6 @@ export default class Deck extends React.Component {
   }
 
   render() {
-    const { navigation: { state: { params: { getScore } } } } = this.props;
     const { currentCardNo } = this.state;
 
     if (currentCardNo === this.countCards()) {

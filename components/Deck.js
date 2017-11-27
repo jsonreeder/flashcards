@@ -6,7 +6,6 @@ export default class Deck extends React.Component {
   state = {
     title: '',
     cards: [],
-    score: 0,
   };
 
   componentDidMount() {
@@ -14,12 +13,6 @@ export default class Deck extends React.Component {
     const deck = api.getDeck(deckId);
     const { title, cards } = deck;
     this.setState({ title, cards });
-  }
-
-  resetScore() {
-    this.setState({
-      score: 0,
-    });
   }
 
   countCards() {
@@ -31,19 +24,8 @@ export default class Deck extends React.Component {
     return cards[cardNo];
   }
 
-  scoreUp() {
-    return this.setState(state => ({
-      score: state.score + 1,
-    }));
-  }
-
-  getScore() {
-    const { score } = this.state;
-    return score;
-  }
-
   render() {
-    const { title, cards, score } = this.state;
+    const { title, cards } = this.state;
     const {
       navigation: { navigate, state: { params: { deckId } } },
     } = this.props;
@@ -60,15 +42,11 @@ export default class Deck extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {
-              this.resetScore();
-              return navigate('Quiz', {
+            onPress={() =>
+              navigate('Quiz', {
                 deckId,
                 cards,
-                scoreUp: () => this.scoreUp(),
-                getScore: () => this.getScore(),
-              });
-            }}
+              })}
             title="start quiz"
           />
           <Button
