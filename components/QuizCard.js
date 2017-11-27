@@ -7,10 +7,13 @@ export default class Deck extends React.Component {
     currentCardNo: 0,
   };
 
+  countCards() {
+    const { navigation: { state: { params: { cards } } } } = this.props;
+    return cards.length;
+  }
+
   renderText() {
-    const {
-      navigation: { navigate, state: { params: { cards } } },
-    } = this.props;
+    const { navigation: { state: { params: { cards } } } } = this.props;
     const { currentCardNo } = this.state;
     const card = cards[currentCardNo];
     const { front, back } = card;
@@ -46,10 +49,7 @@ export default class Deck extends React.Component {
   nextCard(outcome) {
     const { currentCardNo } = this.state;
     const {
-      navigation: {
-        navigate,
-        state: { params: { cards, totalCardNo, scoreUp, getScore } },
-      },
+      navigation: { state: { params: { cards, scoreUp, getScore } } },
     } = this.props;
 
     if (outcome === 'correct') {
@@ -71,12 +71,11 @@ export default class Deck extends React.Component {
   }
 
   renderCard() {
-    const { navigation: { state: { params: { totalCardNo } } } } = this.props;
     const { currentCardNo } = this.state;
 
     return (
       <View style={styles.container}>
-        <Text>{`${currentCardNo + 1} / ${totalCardNo}`}</Text>
+        <Text>{`${currentCardNo + 1} / ${this.countCards()}`}</Text>
         {this.renderText()}
         {this.renderFlip()}
         {this.renderAnswerButtons()}
@@ -85,27 +84,22 @@ export default class Deck extends React.Component {
   }
 
   renderScore() {
-    const {
-      navigation: { state: { params: { getScore, totalCardNo } } },
-    } = this.props;
+    const { navigation: { state: { params: { getScore } } } } = this.props;
     const score = getScore();
 
     return (
       <View style={styles.container}>
-        <Text>{`${score / totalCardNo * 100} %`}</Text>
-        <Text>{`${score} / ${totalCardNo}`}</Text>
+        <Text>{`${score / this.countCards() * 100} %`}</Text>
+        <Text>{`${score} / ${this.countCards()}`}</Text>
       </View>
     );
   }
 
   render() {
-    const {
-      navigation: {
-        state: { params: { currentCardNo, totalCardNo, getScore } },
-      },
-    } = this.props;
+    const { navigation: { state: { params: { getScore } } } } = this.props;
+    const { currentCardNo } = this.state;
 
-    if (currentCardNo === totalCardNo) {
+    if (currentCardNo === this.countCards()) {
       return this.renderScore();
     }
 

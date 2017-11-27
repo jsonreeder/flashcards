@@ -22,7 +22,7 @@ export default class Deck extends React.Component {
     });
   }
 
-  calculateCount() {
+  countCards() {
     const { cards } = this.state;
     return cards.length;
   }
@@ -47,8 +47,6 @@ export default class Deck extends React.Component {
     const {
       navigation: { navigate, state: { params: { deckId } } },
     } = this.props;
-    const count = this.calculateCount();
-    const card = cards[0];
 
     return (
       <View style={styles.container}>
@@ -57,7 +55,7 @@ export default class Deck extends React.Component {
             {title}
           </Text>
           <Text style={styles.count}>
-            {count} cards
+            {this.countCards()} cards
           </Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -66,8 +64,6 @@ export default class Deck extends React.Component {
               this.resetScore();
               return navigate('Quiz', {
                 deckId,
-                currentCardNo: 0,
-                totalCardNo: this.calculateCount(),
                 cards,
                 scoreUp: () => this.scoreUp(),
                 getScore: () => this.getScore(),

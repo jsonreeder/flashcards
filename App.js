@@ -11,6 +11,7 @@ const Stack = StackNavigator({
     screen: Deck,
   },
   Quiz: {
+    path: 'quiz/:deckId',
     screen: QuizCard,
   },
 });
