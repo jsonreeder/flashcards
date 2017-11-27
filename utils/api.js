@@ -1,18 +1,26 @@
+import { AsyncStorage } from 'react-native';
 import seedData from './seedData';
 
-export function getDecksInfo() {
-  const allDecks = getDecks();
-  return allDecks.map(d => ({
-    id: d.id,
-    title: d.title,
-    count: getCardsForDeck(d.id).length,
-  }));
+const STORAGE_KEY = 'Flashcards';
+
+// API
+
+export async function getDecksInfo() {
+  const allDecks = await getDecks();
+  const allCards = await getCards();
+  return allDecks.map(d => {
+    return {
+      id: d.id,
+      title: d.title,
+      count: allCards.filter(c => c.deck === d.id).length,
+    };
+  });
 }
 
-export function getDeck(deckId) {
-  const allDecks = getDecks();
+export async function getDeck(deckId) {
+  const allDecks = await getDecks();
   const deck = allDecks.find(d => d.id === deckId);
-  const cards = getCardsForDeck(deckId);
+  const cards = await getCardsForDeck(deckId);
   return {
     title: deck.title,
     id: deck.id,
@@ -20,17 +28,29 @@ export function getDeck(deckId) {
   };
 }
 
+export async function writeSeedData() {
+  await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(seedData));
+}
+
 // Helpers
 
-function getCardsForDeck(deckId) {
-  const allCards = getCards();
+async function getCardsForDeck(deckId) {
+  const allCards = await getCards();
   return allCards.filter(c => c.deck === deckId);
 }
 
-function getDecks() {
-  return seedData.decks;
+async function getDecks() {
+  const appData = await getAppData();
+  return appData.decks;
 }
 
-function getCards() {
-  return seedData.cards;
+async function getCards() {
+  const appData = await getAppData();
+  return appData.cards;
+}
+
+async function getAppData() {
+  const results = await AsyncStorage.getItem(STORAGE_KEY);
+  const data = JSON.parse(results);
+  return data;
 }

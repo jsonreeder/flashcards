@@ -12,9 +12,9 @@ export default class Deck extends React.Component {
     title: 'deck',
   });
 
-  componentDidMount() {
+  async componentDidMount() {
     const { navigation: { state: { params: { deckId } } } } = this.props;
-    const deck = api.getDeck(deckId);
+    const deck = await api.getDeck(deckId);
     const { title, cards } = deck;
     this.setState({ title, cards });
   }

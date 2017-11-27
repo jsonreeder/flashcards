@@ -1,10 +1,11 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { AddCard, Deck, DeckList, Quiz } from './components';
+import * as api from './utils/api';
 
 const Stack = StackNavigator({
   Home: {
-    screen: AddCard,
+    screen: DeckList,
   },
   Deck: {
     path: 'decks/:deckId',
@@ -21,6 +22,10 @@ const Stack = StackNavigator({
 });
 
 export default class App extends React.Component {
+  componentDidMount() {
+    api.writeSeedData();
+  }
+
   render() {
     return <Stack />;
   }
