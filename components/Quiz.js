@@ -8,6 +8,12 @@ export default class Quiz extends React.Component {
     score: 0,
   };
 
+  static navigationOptions = () => {
+    return {
+      title: 'quiz',
+    };
+  };
+
   scoreUp() {
     return this.setState(state => ({
       score: state.score + 1,

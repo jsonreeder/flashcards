@@ -8,6 +8,12 @@ export default class Deck extends React.Component {
     cards: [],
   };
 
+  static navigationOptions = () => {
+    return {
+      title: 'deck',
+    };
+  };
+
   componentDidMount() {
     const { navigation: { state: { params: { deckId } } } } = this.props;
     const deck = api.getDeck(deckId);

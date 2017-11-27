@@ -7,6 +7,12 @@ export default class DeckList extends React.Component {
     decks: [],
   };
 
+  static navigationOptions = () => {
+    return {
+      title: 'home',
+    };
+  };
+
   componentDidMount() {
     const decks = api.getDecksInfo();
     this.setState({ decks });
