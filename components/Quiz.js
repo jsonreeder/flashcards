@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 
-export default class QuizCard extends React.Component {
+export default class Quiz extends React.Component {
   state = {
     isFlipped: false,
     currentCardNo: 0,

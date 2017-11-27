@@ -1,3 +1,3 @@
 export DeckList from './DeckList';
 export Deck from './Deck';
-export QuizCard from './QuizCard';
+export QuizCard from './Quiz';
