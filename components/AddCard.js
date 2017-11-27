@@ -2,11 +2,9 @@ import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default class AddCard extends React.Component {
-  static navigationOptions = () => {
-    return {
-      title: 'add card',
-    };
-  };
+  static navigationOptions = () => ({
+    title: 'add card',
+  });
 
   render() {
     return (
