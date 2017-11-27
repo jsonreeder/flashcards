@@ -1,10 +1,11 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import { Deck, DeckList } from './components';
+import { Deck, DeckList, QuizCard } from './components';
 
 const Stack = StackNavigator({
   Home: {
-    screen: DeckList,
+    /* screen: DeckList,*/
+    screen: QuizCard,
   },
   Deck: {
     path: 'decks/:deckId',

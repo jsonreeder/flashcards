@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alrt, Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import * as api from '../utils/api';
 
 export default class Deck extends React.Component {
