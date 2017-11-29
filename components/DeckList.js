@@ -12,7 +12,7 @@ export default class DeckList extends React.Component {
   });
 
   async componentDidMount() {
-    const decks = await api.getDecksInfo();
+    const decks = await api.getDecksAndCards();
 
     this.setState({
       decks,
@@ -21,16 +21,17 @@ export default class DeckList extends React.Component {
 
   render() {
     const { decks } = this.state;
+    console.log(decks);
     const { navigation: { navigate } } = this.props;
 
     return (
       <View style={styles.container}>
         {decks &&
-          decks.map((d, i) =>
+          decks.map((deck, i) =>
             <Button
               key={i}
-              onPress={() => navigate('Deck', { deckId: d.id })}
-              title={`${d.title} (${d.count})`}
+              onPress={() => navigate('Deck', { deck })}
+              title={`${deck.title} (${deck.cards.length})`}
             />,
           )}
       </View>

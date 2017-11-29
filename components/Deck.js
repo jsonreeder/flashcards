@@ -3,24 +3,14 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import * as api from '../utils/api';
 
 export default class Deck extends React.Component {
-  state = {
-    title: '',
-    cards: [],
-  };
-
   static navigationOptions = () => ({
     title: 'deck',
   });
 
-  async componentDidMount() {
-    const { navigation: { state: { params: { deckId } } } } = this.props;
-    const deck = await api.getDeck(deckId);
-    const { title, cards } = deck;
-    this.setState({ title, cards });
-  }
-
   countCards() {
-    const { cards } = this.state;
+    const {
+      navigation: { navigate, state: { params: { deck: { cards } } } },
+    } = this.props;
     return cards.length;
   }
 
@@ -29,9 +19,11 @@ export default class Deck extends React.Component {
   }
 
   render() {
-    const { title, cards } = this.state;
     const {
-      navigation: { navigate, state: { params: { deckId } } },
+      navigation: {
+        navigate,
+        state: { params: { deck: { title, cards, id } } },
+      },
     } = this.props;
 
     return (
@@ -48,13 +40,13 @@ export default class Deck extends React.Component {
           <Button
             onPress={() =>
               navigate('Quiz', {
-                deckId,
+                id,
                 cards,
               })}
             title="start quiz"
           />
           <Button
-            onPress={() => navigate('AddCard', { deckId })}
+            onPress={() => navigate('AddCard', { deckId: id })}
             title="add card"
           />
         </View>

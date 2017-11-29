@@ -6,14 +6,14 @@ const STORAGE_KEY = 'Flashcards';
 
 // API
 
-export async function getDecksInfo() {
+export async function getDecksAndCards() {
   const allDecks = await getDecks();
   const allCards = await getCards();
   return allDecks.map(d => {
     return {
       id: d.id,
       title: d.title,
-      count: allCards.filter(c => c.deck === d.id).length,
+      cards: allCards.filter(c => c.deck === d.id),
     };
   });
 }
