@@ -15,12 +15,7 @@ export default class AddCard extends React.Component {
   async handleCreateCard() {
     const { deckId } = this.props.navigation.state.params;
     const { back, front } = this.state;
-    try {
-      await api.createCard(deckId, front, back);
-      /* console.log(deckId, front, back);*/
-    } catch (error) {
-      console.error(error);
-    }
+    await api.createCard(deckId, front, back);
   }
 
   render() {
