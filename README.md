@@ -1,6 +1,6 @@
 # Flashcards
 
-/A React Native practice project/
+_A React Native practice project_
 
 Flashcards is an iOS app built with React Native.
 
