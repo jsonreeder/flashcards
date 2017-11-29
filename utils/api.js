@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import uuid from 'uuid';
 import seedData from './seedData';
 
 const STORAGE_KEY = 'Flashcards';
@@ -29,7 +30,23 @@ export async function getDeck(deckId) {
 }
 
 export async function writeSeedData() {
-  await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(seedData));
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(seedData));
+}
+
+export async function createCard(deckId, front, back) {
+  const card = {
+    back,
+    front,
+    deck: deckId,
+    id: uuid.v4(),
+  };
+  const allDecks = await getDecks();
+  const allCards = await getCards();
+  const newData = {
+    decks: allDecks,
+    cards: [...allCards, card],
+  };
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
 }
 
 // Helpers

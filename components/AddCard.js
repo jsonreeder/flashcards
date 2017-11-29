@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import * as api from '../utils/api';
 
 export default class AddCard extends React.Component {
   state = {
@@ -10,6 +11,17 @@ export default class AddCard extends React.Component {
   static navigationOptions = () => ({
     title: 'add card',
   });
+
+  async handleCreateCard() {
+    const { deckId } = this.props.navigation.state.params;
+    const { back, front } = this.state;
+    try {
+      await api.createCard(deckId, front, back);
+      /* console.log(deckId, front, back);*/
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   render() {
     return (
@@ -30,7 +42,7 @@ export default class AddCard extends React.Component {
             style={styles.input}
           />
         </View>
-        <Button onPress={() => Alert.alert('pressed')} title="submit" />
+        <Button onPress={() => this.handleCreateCard()} title="submit" />
       </View>
     );
   }
