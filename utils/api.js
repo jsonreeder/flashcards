@@ -35,6 +35,7 @@ export async function createCard(deckId, front, back) {
     cards: [...cards, card],
   };
   await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(newData));
+  return card;
 }
 
 // Helpers

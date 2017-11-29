@@ -19,10 +19,10 @@ export default class AddCard extends React.Component {
 
   handleCreateCard() {
     const {
-      navigation: { goBack, state: { params: { deckId } } },
+      navigation: { goBack, state: { params: { deckId, handleCreateCard } } },
     } = this.props;
     const { back, front } = this.state;
-    api.createCard(deckId, front, back);
+    handleCreateCard({ back, front, deckId });
     goBack();
   }
 

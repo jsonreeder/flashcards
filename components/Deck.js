@@ -22,7 +22,7 @@ export default class Deck extends React.Component {
     const {
       navigation: {
         navigate,
-        state: { params: { deck: { title, cards, id } } },
+        state: { params: { deck: { title, cards, id }, handleCreateCard } },
       },
     } = this.props;
 
@@ -46,7 +46,8 @@ export default class Deck extends React.Component {
             title="start quiz"
           />
           <Button
-            onPress={() => navigate('AddCard', { deckId: id })}
+            onPress={() =>
+              navigate('AddCard', { deckId: id, handleCreateCard })}
             title="add card"
           />
         </View>
