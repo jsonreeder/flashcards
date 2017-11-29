@@ -40,13 +40,11 @@ export async function createCard(deckId, front, back) {
     deck: deckId,
     id: uuid.v4(),
   };
-  const allDecks = await getDecks();
   const allCards = await getCards();
   const newData = {
-    decks: allDecks,
     cards: [...allCards, card],
   };
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+  await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(newData));
 }
 
 // Helpers
