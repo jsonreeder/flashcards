@@ -69,6 +69,7 @@ export default class Quiz extends React.Component {
 
     return this.setState(state => ({
       currentCardNo: state.currentCardNo + 1,
+      isFlipped: false,
     }));
   }
 
