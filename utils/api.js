@@ -7,13 +7,12 @@ const STORAGE_KEY = 'Flashcards';
 // API
 
 export async function getDecksAndCards() {
-  const allDecks = await getDecks();
-  const allCards = await getCards();
-  return allDecks.map(d => {
+  const { decks, cards } = await getAppData();
+  return decks.map(d => {
     return {
       id: d.id,
       title: d.title,
-      cards: allCards.filter(c => c.deck === d.id),
+      cards: cards.filter(c => c.deck === d.id),
     };
   });
 }
@@ -29,24 +28,14 @@ export async function createCard(deckId, front, back) {
     deck: deckId,
     id: uuid.v4(),
   };
-  const allCards = await getCards();
+  const { decks, cards } = await getAppData();
   const newData = {
-    cards: [...allCards, card],
+    cards: [...cards, card],
   };
   await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(newData));
 }
 
 // Helpers
-
-async function getDecks() {
-  const appData = await getAppData();
-  return appData.decks;
-}
-
-async function getCards() {
-  const appData = await getAppData();
-  return appData.cards;
-}
 
 async function getAppData() {
   const results = await AsyncStorage.getItem(STORAGE_KEY);
