@@ -12,6 +12,11 @@ export default class AddCard extends React.Component {
     title: 'add card',
   });
 
+  isFormComplete() {
+    const { back, front } = this.state;
+    return !back || !front;
+  }
+
   handleCreateCard() {
     const {
       navigation: { goBack, state: { params: { deckId } } },
@@ -40,7 +45,11 @@ export default class AddCard extends React.Component {
             style={styles.input}
           />
         </View>
-        <Button onPress={() => this.handleCreateCard()} title="submit" />
+        <Button
+          disabled={this.isFormComplete()}
+          onPress={() => this.handleCreateCard()}
+          title="submit"
+        />
       </View>
     );
   }
