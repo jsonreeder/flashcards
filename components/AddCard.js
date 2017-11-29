@@ -12,10 +12,13 @@ export default class AddCard extends React.Component {
     title: 'add card',
   });
 
-  async handleCreateCard() {
-    const { deckId } = this.props.navigation.state.params;
+  handleCreateCard() {
+    const {
+      navigation: { goBack, state: { params: { deckId } } },
+    } = this.props;
     const { back, front } = this.state;
-    await api.createCard(deckId, front, back);
+    api.createCard(deckId, front, back);
+    goBack();
   }
 
   render() {
