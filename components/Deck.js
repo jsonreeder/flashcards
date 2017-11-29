@@ -7,47 +7,42 @@ export default class Deck extends React.Component {
     title: 'deck',
   });
 
-  countCards() {
-    const {
-      navigation: { navigate, state: { params: { deck: { cards } } } },
-    } = this.props;
-    return cards.length;
-  }
-
-  getCard(cards, cardNo) {
-    return cards[cardNo];
-  }
-
   render() {
     const {
       navigation: {
         navigate,
-        state: { params: { deck: { title, cards, id }, handleCreateCard } },
+        state: { params: { getDeck, deckId, handleCreateCard } },
       },
     } = this.props;
+    const deck = getDeck(deckId);
+    const cards = deck.cards;
 
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>
-            {title}
+            {deck.title}
           </Text>
           <Text style={styles.count}>
-            {this.countCards()} cards
+            {cards.length} cards
           </Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
             onPress={() =>
               navigate('Quiz', {
-                id,
+                id: deckId,
                 cards,
               })}
             title="start quiz"
           />
           <Button
             onPress={() =>
-              navigate('AddCard', { deckId: id, handleCreateCard })}
+              navigate('AddCard', {
+                deckId,
+                handleCreateCard,
+                refresh: () => this.forceUpdate(),
+              })}
             title="add card"
           />
         </View>

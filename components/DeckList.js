@@ -26,10 +26,15 @@ export default class DeckList extends React.Component {
         ...state.decks,
         [deckId]: {
           ...state.decks[deckId],
-          cards: [...state.decks[deckId].cards, card, card],
+          cards: [...state.decks[deckId].cards, card],
         },
       },
     }));
+  }
+
+  getDeck(deckId) {
+    const { decks } = this.state;
+    return decks[deckId];
   }
 
   render() {
@@ -47,7 +52,8 @@ export default class DeckList extends React.Component {
                 key={i}
                 onPress={() =>
                   navigate('Deck', {
-                    deck,
+                    deckId: key,
+                    getDeck: deckId => this.getDeck(deckId),
                     handleCreateCard: args => this.handleCreateCard(args),
                   })}
                 title={`${deck.title} (${deck.cards.length})`}

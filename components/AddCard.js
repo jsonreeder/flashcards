@@ -17,12 +17,16 @@ export default class AddCard extends React.Component {
     return !back || !front;
   }
 
-  handleCreateCard() {
+  async handleCreateCard() {
     const {
-      navigation: { goBack, state: { params: { deckId, handleCreateCard } } },
+      navigation: {
+        goBack,
+        state: { params: { deckId, handleCreateCard, refresh } },
+      },
     } = this.props;
     const { back, front } = this.state;
-    handleCreateCard({ back, front, deckId });
+    await handleCreateCard({ back, front, deckId });
+    refresh();
     goBack();
   }
 
