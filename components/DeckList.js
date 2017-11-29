@@ -4,7 +4,7 @@ import * as api from '../utils/api';
 
 export default class DeckList extends React.Component {
   state = {
-    decks: [],
+    decks: {},
   };
 
   static navigationOptions = () => ({
@@ -21,19 +21,22 @@ export default class DeckList extends React.Component {
 
   render() {
     const { decks } = this.state;
-    console.log(decks);
     const { navigation: { navigate } } = this.props;
+    const decksKeys = Object.keys(decks);
 
     return (
       <View style={styles.container}>
-        {decks &&
-          decks.map((deck, i) =>
-            <Button
-              key={i}
-              onPress={() => navigate('Deck', { deck })}
-              title={`${deck.title} (${deck.cards.length})`}
-            />,
-          )}
+        {decksKeys &&
+          decksKeys.map((key, i) => {
+            const deck = decks[key];
+            return (
+              <Button
+                key={i}
+                onPress={() => navigate('Deck', { deck })}
+                title={`${deck.title} (${deck.cards.length})`}
+              />
+            );
+          })}
       </View>
     );
   }

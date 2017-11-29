@@ -8,13 +8,15 @@ const STORAGE_KEY = 'Flashcards';
 
 export async function getDecksAndCards() {
   const { decks, cards } = await getAppData();
-  return decks.map(d => {
-    return {
+  const decksAndCards = decks.reduce((decks, d) => {
+    decks[d.id] = {
       id: d.id,
       title: d.title,
       cards: cards.filter(c => c.deck === d.id),
     };
-  });
+    return decks;
+  }, {});
+  return decksAndCards;
 }
 
 export async function writeSeedData() {
