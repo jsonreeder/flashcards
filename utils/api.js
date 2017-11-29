@@ -18,17 +18,6 @@ export async function getDecksAndCards() {
   });
 }
 
-export async function getDeck(deckId) {
-  const allDecks = await getDecks();
-  const deck = allDecks.find(d => d.id === deckId);
-  const cards = await getCardsForDeck(deckId);
-  return {
-    title: deck.title,
-    id: deck.id,
-    cards,
-  };
-}
-
 export async function writeSeedData() {
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(seedData));
 }
@@ -48,11 +37,6 @@ export async function createCard(deckId, front, back) {
 }
 
 // Helpers
-
-async function getCardsForDeck(deckId) {
-  const allCards = await getCards();
-  return allCards.filter(c => c.deck === deckId);
-}
 
 async function getDecks() {
   const appData = await getAppData();
