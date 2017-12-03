@@ -7,6 +7,12 @@ export default class Deck extends React.Component {
     title: 'deck',
   });
 
+  cardCount(deck) {
+    const quantifier = deck.cards ? deck.cards.length : 0;
+    const noun = quantifier === 1 ? 'card' : 'cards';
+    return `${quantifier} ${noun}`;
+  }
+
   render() {
     const {
       navigation: {
@@ -15,7 +21,6 @@ export default class Deck extends React.Component {
       },
     } = this.props;
     const deck = getDeck(deckId);
-    const cards = deck.cards;
 
     return (
       <View style={styles.container}>
@@ -24,7 +29,7 @@ export default class Deck extends React.Component {
             {deck.title}
           </Text>
           <Text style={styles.count}>
-            {cards ? cards.length : 0} cards
+            {this.cardCount(deck)}
           </Text>
         </View>
         <View style={styles.buttonContainer}>
