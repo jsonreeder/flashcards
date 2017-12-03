@@ -24,7 +24,7 @@ export default class Deck extends React.Component {
             {deck.title}
           </Text>
           <Text style={styles.count}>
-            {cards.length} cards
+            {cards ? cards.length : 0} cards
           </Text>
         </View>
         <View style={styles.buttonContainer}>

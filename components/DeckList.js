@@ -32,12 +32,12 @@ export default class DeckList extends React.Component {
     }));
   }
 
-  async handleCreateDeck({ name }) {
-    const deck = await api.createDeck(name);
+  async handleCreateDeck({ title }) {
+    const deck = await api.createDeck(title);
     this.setState(state => ({
       decks: {
         ...state.decks,
-        [deck.id]: {},
+        [deck.id]: deck,
       },
     }));
   }
@@ -45,6 +45,11 @@ export default class DeckList extends React.Component {
   getDeck(deckId) {
     const { decks } = this.state;
     return decks[deckId];
+  }
+
+  deckTitle(deck) {
+    const cardCount = deck.cards ? deck.cards.length : 0;
+    return `${deck.title} (${cardCount})`;
   }
 
   render() {
@@ -66,7 +71,7 @@ export default class DeckList extends React.Component {
                     getDeck: deckId => this.getDeck(deckId),
                     handleCreateCard: args => this.handleCreateCard(args),
                   })}
-                title={`${deck.title} (${deck.cards.length})`}
+                title={this.deckTitle(deck)}
               />
             );
           })}
@@ -74,6 +79,7 @@ export default class DeckList extends React.Component {
           onPress={() =>
             navigate('AddDeck', {
               handleCreateDeck: args => this.handleCreateDeck(args),
+              refresh: () => this.forceUpdate(),
             })}
           title="add deck"
         />

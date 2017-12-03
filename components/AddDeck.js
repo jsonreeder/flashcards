@@ -4,24 +4,24 @@ import * as api from '../utils/api';
 
 export default class AddDeck extends React.Component {
   state = {
-    name: '',
+    title: '',
   };
 
   static navigationOptions = () => ({
     title: 'add deck',
   });
 
-  isFormComplete() {
-    const { name } = this.state;
-    return !!name;
+  isFormIncomplete() {
+    const { title } = this.state;
+    return !title;
   }
 
   async handleCreateDeck() {
     const {
-      navigation: { goBack, state: { params: { handleCreateCard, refresh } } },
+      navigation: { goBack, state: { params: { handleCreateDeck, refresh } } },
     } = this.props;
-    const { name } = this.state;
-    await handleCreateDeck({ name });
+    const { title } = this.state;
+    await handleCreateDeck({ title });
     refresh();
     goBack();
   }
@@ -30,15 +30,15 @@ export default class AddDeck extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.formGroup}>
-          <Text style={styles.label}>name</Text>
+          <Text style={styles.label}>title</Text>
           <TextInput
-            onChangeText={front => this.setState({ name })}
-            value={this.state.name}
+            onChangeText={title => this.setState({ title })}
+            value={this.state.title}
             style={styles.input}
           />
         </View>
         <Button
-          disabled={this.isFormComplete()}
+          disabled={this.isFormIncomplete()}
           onPress={() => this.handleCreateDeck()}
           title="submit"
         />

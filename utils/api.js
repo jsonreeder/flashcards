@@ -38,15 +38,16 @@ export async function createCard(deckId, front, back) {
   return card;
 }
 
-export async function createDeck(name) {
+export async function createDeck(title) {
   const deck = {
-    name,
     id: uuid.v4(),
+    title,
   };
   const { decks, cards } = await getAppData();
   const newData = {
     decks: [...decks, deck],
   };
+  console.log('newData', newData);
   await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(newData));
   return deck;
 }
