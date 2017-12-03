@@ -1,6 +1,6 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import { AddCard, Deck, DeckList, Quiz } from './components';
+import { AddCard, AddDeck, Deck, DeckList, Quiz } from './components';
 import * as api from './utils/api';
 
 const Stack = StackNavigator({
@@ -18,6 +18,9 @@ const Stack = StackNavigator({
   AddCard: {
     path: 'decks/:deckId/add',
     screen: AddCard,
+  },
+  AddDeck: {
+    screen: AddDeck,
   },
 });
 

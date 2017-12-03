@@ -32,6 +32,16 @@ export default class DeckList extends React.Component {
     }));
   }
 
+  async handleCreateDeck({ name }) {
+    const deck = await api.createDeck(name);
+    this.setState(state => ({
+      decks: {
+        ...state.decks,
+        [deck.id]: {},
+      },
+    }));
+  }
+
   getDeck(deckId) {
     const { decks } = this.state;
     return decks[deckId];
@@ -60,6 +70,13 @@ export default class DeckList extends React.Component {
               />
             );
           })}
+        <Button
+          onPress={() =>
+            navigate('AddDeck', {
+              handleCreateDeck: args => this.handleCreateDeck(args),
+            })}
+          title="add deck"
+        />
       </View>
     );
   }
