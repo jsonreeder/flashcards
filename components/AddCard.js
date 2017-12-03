@@ -12,7 +12,7 @@ export default class AddCard extends React.Component {
     title: 'add card',
   });
 
-  isFormComplete() {
+  isFormIncomplete() {
     const { back, front } = this.state;
     return !back || !front;
   }
@@ -50,7 +50,7 @@ export default class AddCard extends React.Component {
           />
         </View>
         <Button
-          disabled={this.isFormComplete()}
+          disabled={this.isFormIncomplete()}
           onPress={() => this.handleCreateCard()}
           title="submit"
         />
