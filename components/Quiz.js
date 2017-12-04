@@ -47,17 +47,9 @@ export default class Quiz extends React.Component {
     const { front, back } = card;
     const { isFlipped } = this.state;
 
-    if (!isFlipped) {
-      return (
-        <Text>
-          {front}
-        </Text>
-      );
-    }
-
     return (
-      <Text>
-        {back}
+      <Text style={styles.content}>
+        {!isFlipped ? front : back}
       </Text>
     );
   }
@@ -104,10 +96,14 @@ export default class Quiz extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>{`${currentCardNo + 1} / ${this.countCards()}`}</Text>
-        {this.renderText()}
-        {this.renderFlip()}
-        {this.renderAnswerButtons()}
+        <View style={styles.textContainer}>
+          {this.renderText()}
+          <Text>{`${currentCardNo + 1} / ${this.countCards()}`}</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          {this.renderFlip()}
+          {this.renderAnswerButtons()}
+        </View>
       </View>
     );
   }
@@ -120,10 +116,16 @@ export default class Quiz extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>{`${score / this.countCards() * 100} %`}</Text>
-        <Text>{`${score} / ${this.countCards()}`}</Text>
-        <Button onPress={() => this.reset()} title="restart quiz" />
-        <Button onPress={() => goBack()} title="back to deck" />
+        <View style={styles.textContainer}>
+          <Text style={styles.content}>{`${score /
+            this.countCards() *
+            100} %`}</Text>
+          <Text>{`${score} / ${this.countCards()}`}</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button onPress={() => this.reset()} title="restart quiz" />
+          <Button onPress={() => goBack()} title="back to deck" />
+        </View>
       </View>
     );
   }
@@ -144,5 +146,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  content: {
+    fontSize: 30,
+  },
+  textContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    marginBottom: 80,
   },
 });
