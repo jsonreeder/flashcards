@@ -9,15 +9,12 @@ const Stack = StackNavigator({
     screen: DeckList,
   },
   Deck: {
-    path: 'decks/:deckId',
     screen: Deck,
   },
   Quiz: {
-    path: 'quiz/:deckId',
     screen: Quiz,
   },
   AddCard: {
-    path: 'decks/:deckId/add',
     screen: AddCard,
   },
   AddDeck: {
