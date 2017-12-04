@@ -33,6 +33,7 @@ export default class DeckList extends React.Component {
   }
 
   async handleCreateDeck({ title }) {
+    const { navigation: { navigate } } = this.props;
     const deck = await api.createDeck(title);
     this.setState(state => ({
       decks: {
@@ -40,6 +41,11 @@ export default class DeckList extends React.Component {
         [deck.id]: deck,
       },
     }));
+    navigate('Deck', {
+      deckId: deck.id,
+      getDeck: deckId => this.getDeck(deckId),
+      handleCreateCard: args => this.handleCreateCard(args),
+    });
   }
 
   getDeck(deckId) {

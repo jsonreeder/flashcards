@@ -16,14 +16,12 @@ export default class AddDeck extends React.Component {
     return !title;
   }
 
-  async handleCreateDeck() {
+  handleCreateDeck() {
     const {
       navigation: { goBack, state: { params: { handleCreateDeck, refresh } } },
     } = this.props;
     const { title } = this.state;
-    await handleCreateDeck({ title });
-    refresh();
-    goBack();
+    handleCreateDeck({ title });
   }
 
   render() {
