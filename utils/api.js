@@ -47,7 +47,6 @@ export async function createDeck(title) {
   const newData = {
     decks: [...decks, deck],
   };
-  console.log('newData', newData);
   await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(newData));
   return deck;
 }
