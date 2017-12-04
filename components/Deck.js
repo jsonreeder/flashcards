@@ -48,7 +48,7 @@ export default class Deck extends React.Component {
                 handleCreateCard,
                 refresh: () => this.forceUpdate(),
               })}
-            title="add card"
+            title="create new question"
           />
         </View>
       </View>
