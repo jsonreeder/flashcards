@@ -2,6 +2,7 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { AddCard, AddDeck, Deck, DeckList, Quiz } from './components';
 import * as api from './utils/api';
+import { setLocalNotification } from './utils/notifications';
 
 const Stack = StackNavigator({
   Home: {
@@ -27,6 +28,7 @@ const Stack = StackNavigator({
 export default class App extends React.Component {
   componentDidMount() {
     api.writeSeedData();
+    setLocalNotification();
   }
 
   render() {
