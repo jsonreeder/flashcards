@@ -113,13 +113,12 @@ export default class Quiz extends React.Component {
       navigation: { goBack, state: { params: { getScore } } },
     } = this.props;
     const { score } = this.state;
+    const percent = Math.round(score / this.countCards() * 100);
 
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
-          <Text style={styles.content}>{`${score /
-            this.countCards() *
-            100} %`}</Text>
+          <Text style={styles.content}>{`${percent} %`}</Text>
           <Text>{`${score} / ${this.countCards()}`}</Text>
         </View>
         <View style={styles.buttonContainer}>
