@@ -40,7 +40,7 @@ export default class AddDeck extends React.Component {
         <Button
           disabled={this.isFormIncomplete()}
           onPress={() => this.handleCreateDeck()}
-          title="submit"
+          title="create deck"
         />
       </View>
     );
