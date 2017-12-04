@@ -12,6 +12,14 @@ export default class Quiz extends React.Component {
     score: 0,
   };
 
+  reset() {
+    this.setState({
+      isFlipped: false,
+      currentCardNo: 0,
+      score: 0,
+    });
+  }
+
   async componentDidMount() {
     await clearLocalNotification;
     setLocalNotification;
@@ -105,13 +113,17 @@ export default class Quiz extends React.Component {
   }
 
   renderScore() {
-    const { navigation: { state: { params: { getScore } } } } = this.props;
+    const {
+      navigation: { goBack, state: { params: { getScore } } },
+    } = this.props;
     const { score } = this.state;
 
     return (
       <View style={styles.container}>
         <Text>{`${score / this.countCards() * 100} %`}</Text>
         <Text>{`${score} / ${this.countCards()}`}</Text>
+        <Button onPress={() => this.reset()} title="restart quiz" />
+        <Button onPress={() => goBack()} title="back to deck" />
       </View>
     );
   }
