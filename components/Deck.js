@@ -13,6 +13,14 @@ export default class Deck extends React.Component {
     return `${quantifier} ${noun}`;
   }
 
+  isStartQuizInvalid(deck) {
+    const cards = deck.cards;
+    if (cards && cards.length) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
     const {
       navigation: {
@@ -39,6 +47,7 @@ export default class Deck extends React.Component {
                 id: deckId,
                 cards: deck.cards,
               })}
+            disabled={this.isStartQuizInvalid(deck)}
             title="start quiz"
           />
           <Button
