@@ -21,15 +21,19 @@ export default class DeckList extends React.Component {
 
   async handleCreateCard({ back, front, deckId }) {
     const card = await api.createCard(deckId, front, back);
-    this.setState(state => ({
-      decks: {
-        ...state.decks,
-        [deckId]: {
-          ...state.decks[deckId],
-          cards: [...state.decks[deckId].cards, card],
+    this.setState(state => {
+      const previousCards = state.decks[deckId].cards;
+      cards = previousCards ? [...state.decks[deckId].cards, card] : [card];
+      return {
+        decks: {
+          ...state.decks,
+          [deckId]: {
+            ...state.decks[deckId],
+            cards,
+          },
         },
-      },
-    }));
+      };
+    });
   }
 
   async handleCreateDeck({ title }) {
