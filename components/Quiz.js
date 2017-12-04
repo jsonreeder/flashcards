@@ -1,5 +1,9 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import {
+  clearLocalNotification,
+  setLocalNotification,
+} from '../utils/notifications';
 
 export default class Quiz extends React.Component {
   state = {
@@ -7,6 +11,11 @@ export default class Quiz extends React.Component {
     currentCardNo: 0,
     score: 0,
   };
+
+  async componentDidMount() {
+    await clearLocalNotification;
+    setLocalNotification;
+  }
 
   static navigationOptions = () => ({
     title: 'quiz',
