@@ -37,7 +37,7 @@ export default class Deck extends React.Component {
             onPress={() =>
               navigate('Quiz', {
                 id: deckId,
-                cards,
+                cards: deck.cards,
               })}
             title="start quiz"
           />
